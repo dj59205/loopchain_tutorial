@@ -70,7 +70,7 @@ docker run -d --name peer0 \
   -p 7100:7100 -p 9000:9000  \
   loopchain/looppeer:${TAG} \
   python3 peer.py -o /conf/peer_conf.json  -r radio_station:7102
-  
+
 ...
 ```
 
@@ -83,9 +83,6 @@ docker run -d --name peer0 \
 $ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
 
 //결과
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   855  100   855    0     0  13609      0 --:--:-- --:--:-- --:--:-- 13790
 {
     "data": {
         "connected_peer_count": 1,
@@ -124,10 +121,6 @@ $ curl http://localhost:9002/api/v1/peer/list | python -m json.tool
 ```bash
 $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
 
-// 결과
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   264  100   264    0     0  14355      0 --:--:-- --:--:-- --:--:-- 14666
 {
     "audience_count": "0",
     "block_height": 2,
@@ -147,11 +140,6 @@ $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
 ```bash
 $ curl http://localhost:9000/api/v1/status/score | python -m json.tool
 
-
-// 결과
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  1042  100  1042    0     0  16726      0 --:--:-- --:--:-- --:--:-- 16806
 {
     "all_version": [
         "f58b8b3e955984a09674a1f74c493001678d706c",
@@ -188,9 +176,6 @@ $ curl http://localhost:9000/api/v1/status/score | python -m json.tool
 $ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"propose","params":{"proposer":"RealEstateAgent" , "counterparties": ["leaseholder","lessor"], "content": "A아파트 203동 803호를 보증금 1500 월세 70에 계약 2019년 8월 1일까지 임대함, 임대 취소시 ~~~ ", "quorum": "3"}}'  http://localhost:9000/api/v1/transactions | python -m json.tool
 
 // 결과
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   389  100   119  100   270   7321  16612 --:--:-- --:--:-- --:--:-- 16875
 {
     "more_info": "",
     "response_code": "0",
@@ -198,15 +183,12 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method"
 }
 ```
 
-#### 5. SCORE Transaction 조회 - `tx_hash` 사용 
+#### 5. SCORE Transaction 조회 - `tx_hash` 사용
 
 ```bash
 $ curl http://localhost:9000/api/v1/transactions?hash=6f02e79ee73b248b78f156180906cfbea5af2755d90cb3f03fe4f9d16d94eaf3 | python -m json.tool
 
 // 결과
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100    66  100    66    0     0   5320      0 --:--:-- --:--:-- --:--:--  5500
 {
     "response": {
         "code": 0,

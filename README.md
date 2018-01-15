@@ -20,11 +20,23 @@ Docker CE(Community Edition)X86_64, Docker EE(Enterprise edition) X86_64를 운�
 * Docker EE:상용버전, 무료 Trial제공. 각종 OS들에 대한 지원추가. [Contact point](https://goto.docker.com/contact-us.html)
 * 모든 상황에서 방법이 없으면 [docker를 binary부터 설치할 수 있는 방법](https://docs.docker.com/engine/installation/linux/docker-ce/binaries/#install-static-binaries)이 있습니다.
 
-### loopchain Docker image종류
+
+### Dockerhub에서 Docker image 받기
+[Dockerhub](https://hub.docker.com/u/loopchain/)에 loopchain docker image가 올라와 있습니다.
+
+#### loopchain Docker image종류
 Docker image들은 크게 3가지로 나뉩니다.
 * looprs: Radiostation docker images
 * looppeer: Peer docker image
 * loopchain-fluentd: Log를 받아서 처리하게 수정한 fluentd image입니다.
+
+### Docker image pull 받기
+ 아래와 같이 ```docker pull```을 이용해서 받아야 합니다. 
+```
+$docker pull loopchain/looprs
+$docker pull loopchain/looppeer
+$docker pull loopchain/loopchain-fluentd
+```
 
 ### 포트 열기
 * loopchain을 사용하기 위해 다음의 Port가 열려야 합니다.
