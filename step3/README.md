@@ -201,7 +201,7 @@ $ curl http://localhost:9000/api/v1/transactions?hash=6f02e79ee73b248b78f1561809
 #### 6. SCORE Transaction 실행 결과 조회 (Query)
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc": "2.0","channel":"channel1","method":"get_user_contracts","id":"test_query","params":{"user_id":"leasor"}}' http://localhost:9000/api/v1/query | python -m json.tool
+$ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc": "2.0","channel":"channel1","method":"get_user_contracts","id":"test_query","params":{"user_id":"lessor"}}' http://localhost:9000/api/v1/query | python -m json.tool
 
 // 결과
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
