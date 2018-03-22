@@ -1,0 +1,32 @@
+{
+	"id": "scoreex",
+	"version": "0.1.0",
+	"auth": {
+		"name": "your_team",
+		"email": "your_email@your_company.com",
+		"org": "your_company"
+	},
+	"description": "contract_sample",
+	"repository": {},
+	"dependencies": {},
+	"homepage": "http://your_company.com",
+	"function": {
+		"invoke": [{
+			"method": "invoke_foo",
+			"params": {
+				"arg1": "string",
+				"arg2": "string"
+			},
+			"description": "invoke example function"
+		}],
+		"query": [{
+			"method": "query_foo",
+			"params": {
+				"arg1": "string"
+			},
+      "description": "query example function"
+
+		}]
+	},
+	"main": "scoreex"
+}
