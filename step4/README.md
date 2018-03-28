@@ -1,60 +1,56 @@
 
-Local computer에서 SCORE개발 환경 만들기
+Local computer에서 SCORE 개발할 수 있는 환경 만들기
 ===================
 
-## 1. Loopchain SCORE란?
-
-- Loopchain의 스마트 컨트렉트를 통칭합니다.
-- 각 피어에서 독립적으로 실행되며, Block 이 확정되는 시점에서 실행됩니다.
-- Block별로 실행하며, 블록체인으로 구성하는 비지니스로직을 구현한다.
-- Python 언어로 개발되며, Loopchain의 dependency 를 따릅니다.
+## 1. 목적
+ 앞서서 github에 올라와 있는 SCORE를 받아와서 올려 보았습니다. 이번에는 실제 개발을 한다고 했을 때, 어떻게 개발할 수 있는 환경을 만드는 법을 이야기 하려고 합니다.
 
 
+## 2. 프로젝트 구성
+아래와 같이 프로젝트를 구성하겠습니다. 실제 사용된 파일은 이 폴더의 하위 폴더에 있습니다. 주목해야 하는 것은 ```score/develop```이라는 폴더가 생겼다는 것입니다. 이 폴더 아래에 앞서서 이용했던 ``` contract_score```의 코드를 있는 그대로 올려놓을 것 입니다. (실제 사용된 모든 파일은 현재 폴더아래 있습니다.)
 
-## 2. SCORE 저장소 생성
+```
+├── README.md
+├── conf
+│   ├── channel_manage_data.json
+│   ├── peer_conf.json
+│   └── rs_conf.json
+├── fluentd
+│   └── etc
+│       └── fluent.conf
+├── score
+│   └── develop
+│       └── contract_score
+├── logs
+├── storage0
+├── storageRS
+├── start.sh
+├── stop.sh
+└── delete.sh
+```
 
-1. Github에서 [SCORE 프로젝트](https://github.com/theloopkr/contract_sample)를 Fork하여 테스트용 SCORE 저장소를 생성합니다.
+이렇게 구성하고 loopchain에게 "score/deveop" 폴더 아래 있는 SCORE 프로젝트를 읽어오라고 할 것입니다.
 
-   1. SCORE 프로젝트는 2개의 파일로 구성됩니다.
-      1. package.json
-      2. SCORE code ( ```*.py```파일)
-
-2. SCORE 저장소와 SSH통신을 위해 ssh 키쌍을 생성합니다.
-
-   ```bash
-   $ssh-keygen
-   Generating public/private rsa key pair.
-   Enter file in which to save the key (/Users/wise/.ssh/id_rsa): id_tutorial
-
-   $ cat id_tutorial.pub
-   ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDu9aZIDq88VzIAStqjswToE+X0nn34jCQ0JELmsQuIjdve4lNSGJlyMmILFJzRnjX5MYqCWoEhSrE6z9kyRKf82hxyJdewNJK15kC8Se+5c19htrJ0cY47wzXQpm9YOPpEAvmYxUMpMLF2Km7MMHF7dhI/1HvMRn/b1Cab8Qkfzg8yzix0SJ35tnLkgVP1OAjxe1Lv/0puhm1eNkVxFKI48DzJ1d5GiDb99Dj6V4kmNcy3Hs9C8Ej4Vq69Jp7qSjKZg9j5F4M+ABq2h1EhyB9kVUTiZVlIFqqOr8f8ymG+YUY3QWx7LmmXlKIa0t9YCIGc5pJKHo1aTwR0wdM9zwhP ...
-   ```
-
-3. Github SCORE 저장소에 SSH public key 내용을 (예:id_tutorial.pub)를 등록합니다.
-
-   ![ssh key 등록](./img/reg-sshkey-github.png)
-
-   ​
 
 ## 3. 환경설정
 
+
 #### 1. Peer 설정 - `channel_manage_data.json `
 
-score_package 속성에 SCORE 저장소 경로를 설정 `"score_package": "{your_github_id}/contract_sample"`
+```score_package```를 ```develop/contract_score```라고 줍니다. 기본적으로 loopchain은 score폴더 아래에 있는 SCORE 프로젝트를 가져오려고 합니다.
 
  ```
  {
    "channel1":
      {
-       "score_package": "{your_github_id}/contract_sample"
+       "score_package": "develop/contract_score"
      }
  }
+```
 
- ```
+
 #### 2. 시작스크립트에서 Peer실행 추가설정 - `launch_servers.sh`
-
-1. SSH Key 경로설정 `-v "${SSH_KEY_FOLDER}:/root/.ssh/id_rsa`
-2. SCORE 저장소 도메인 설정  `-e "DEFAULT_SCORE_HOST=github.com"`
+ 기존에 있던 SSH key, SCORE저장소 도메인을 지웁니다. 현재 local computer에서 읽어서 처리할 것이기 때문입니다.
 
 ```bash
 ...
@@ -63,8 +59,6 @@ docker run -d --name peer0 \
   -v $(pwd)/conf:/conf \
   -v $(pwd)/storage0:/.storage \
   -v $(pwd)/score:/score \
-  -v "${SSH_KEY_FOLDER}:/root/.ssh/id_rsa \
-  -e "DEFAULT_SCORE_HOST=github.com" \
   --link radio_station:radio_station \
   --log-driver fluentd --log-opt fluentd-address=localhost:24224 \
   -p 7100:7100 -p 9000:9000  \
@@ -72,6 +66,12 @@ docker run -d --name peer0 \
   python3 peer.py -o /conf/peer_conf.json  -r radio_station:7102
 
 ...
+```
+
+#### 3. 시작해보기
+
+```bash
+$ launch_servers.sh
 ```
 
 
@@ -136,37 +136,18 @@ $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
 ```
 
 #### 3. SCORE 버전 조회
+ 이 부분에서 보면 version이 하나만 나오는 것을 알 수 있습니다. 이것은 local 컴퓨터안에 있는 파일을 가지고 내부에서 git repository를 자체적으로 구성해서 올리기 때문입니다. 이것은 loopchain이 올라올 때, ```score/develop``폴더 아래 보면 ```deploy``` 란 폴더가 있는 것으로 확인 가능합니다. 
 
 ```bash
 $ curl http://localhost:9000/api/v1/status/score | python -m json.tool
 
 {
     "all_version": [
-        "f58b8b3e955984a09674a1f74c493001678d706c",
-        "b39064b358b84798f20f024fca066a113ec88b18",
-        "99923ce139350cf8f37ef9f72fddf3f327da4d7a",
-        "e25e2fba404bbc42b010c552d280063c704a0917",
-        "909b1ee00a00f12f744f3d669232c6f4549e945f",
-        "51f258059bcc4f1fa46ba3df8762b953e27fcdee",
-        "359b1f79b8bf2064ce0605d4b081da43a845beda",
-        "3d7195e1e98e38bdddab93fd03ee0c7aa0a20765",
-        "669b6db3a6c085b3de96d7bd13bc19efc26162ae",
-        "5136f28e83e3aaf6fabb0c0556b505ca5b95a44c",
-        "a74476425197c2b2b009a180f24f52efec932da8",
-        "95c0dd33b826c9b529a9f8b6b349e1b002bb9835",
-        "71afe3ca44fa46acced9b12c80ad1951fe83e4bd",
-        "f01986ae06e402a97e48bfddb31d5aeebe1dc07b",
-        "99ece33bb62b8b1c61182d074351b5062311d2f5",
-        "eabe94b94545faac1c8951fb31ef62a9f549cc5f",
-        "f5aab582d9f390f5378daf08f54d08c071f15d0c",
-        "f79c480fc7af6d02c79e1fe3191bbc471962166f",
-        "e38140e76766f2e51f30858a0ee3c82a90b9c258",
-        "af7c49743fecd315d4e4491751fbdae9b92dead7",
-        "bcc0d0f05d1a219cd4ed47955a86b0e16d1b2778"
+        "b301ffd2e0cf8fe2541de975e8d3afd281a7170b"
     ],
-    "id": "mhhyun/contract_sample",
+    "id": "develop/contract_score",
     "status": 0,
-    "version": "f58b8b3e955984a09674a1f74c493001678d706c"
+    "version": "b301ffd2e0cf8fe2541de975e8d3afd281a7170b"
 }
 ```
 

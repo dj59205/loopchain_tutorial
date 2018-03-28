@@ -1,5 +1,5 @@
 
-Local computer에서 SCORE개발 환경 만들기
+Local computer에서 Github에 있는 SCORE를 가져와서 올리기
 ===================
 
 ## 1. Loopchain SCORE란?
@@ -27,7 +27,7 @@ Local computer에서 SCORE개발 환경 만들기
    Enter file in which to save the key (/Users/wise/.ssh/id_rsa): id_tutorial
 
    $ cat id_tutorial.pub
-   ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDu9aZIDq88VzIAStqjswToE+X0nn34jCQ0JELmsQuIjdve4lNSGJlyMmILFJzRnjX5MYqCWoEhSrE6z9kyRKf82hxyJdewNJK15kC8Se+5c19htrJ0cY47wzXQpm9YOPpEAvmYxUMpMLF2Km7MMHF7dhI/1HvMRn/b1Cab8Qkfzg8yzix0SJ35tnLkgVP1OAjxe1Lv/0puhm1eNkVxFKI48DzJ1d5GiDb99Dj6V4kmNcy3Hs9C8Ej4Vq69Jp7qSjKZg9j5F4M+ABq2h1EhyB9kVUTiZVlIFqqOr8f8ymG+YUY3QWx7LmmXlKIa0t9YCIGc5pJKHo1aTwR0wdM9zwhP ...
+   ssh-rsa .......
    ```
 
 3. Github SCORE 저장소에 SSH public key 내용을 (예:id_tutorial.pub)를 등록합니다.

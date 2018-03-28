@@ -7,9 +7,6 @@ export TAG=latest
 export LOG_FOLDER=$(pwd)/logs
 mkdir ${LOG_FOLDER}
 
-#SSH key folder
-export SSH_KEY_FOLDER=/Users/jinhoyoo/.ssh/id_rsa2
-
 # log server 띄우기.
 docker run -d \
 --name loop-logger \
