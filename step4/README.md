@@ -61,7 +61,7 @@ Local computer에서 SCORE 개발할 수 있는 환경 만들기
 }
 ```
 
-### 3. 시작스크립트에서 Peer실행 추가설정 - [`launch_servers.sh`](launch_server.sh)
+### 3. 시작스크립트에서 Peer실행 추가설정 - [`launch_servers.sh`](launch_servers.sh)
  기존에 있던 SSH key, SCORE저장소 도메인을 지웁니다. 현재 local computer에서 읽어서 처리할 것이기 때문입니다.
 
 ```bash
