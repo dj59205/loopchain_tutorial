@@ -33,7 +33,7 @@ Local computer에서 SCORE 개발할 수 있는 환경 만들기
 
 
 ### 1. RadioStation 설정 - [`channel_manage_data.json `](conf/channel_manage_data.json)
- ```score_package```의 값을 ```develop/contract_score```라고 줍니다. 이 뜻은 'score라는 폴더 아래에 develop/contract_score'라는 SCORE프로젝트를 가져오라는 뜻입니다.
+ ```score_package```의 값을 ```develop/contract_score```라고 줍니다. 이 뜻은 `score/develop/contract_score'라는 SCORE프로젝트를 가져오라는 뜻입니다.
 
  ```
  {
@@ -47,8 +47,8 @@ Local computer에서 SCORE 개발할 수 있는 환경 만들기
 
 ### 2. Peer 설정 - [`peer_conf.json `](conf/peer_conf.json)
  이제 각 peer에서 개발용으로 SCORE를 읽어오라고 설정해야 합니다. 아래 설정들의 의미는 다음과 같습니다.
-  - LOOPCHAIN_DEFAULT_CHANNEL : Multichannel의 기능입니다. 각 RESTful request에는  ```channel_manage_data.json```에서 지정한 channel명이 붙어야 합니다. 그러나 이 옵션을 주면 여기서 지정한 채널로 reqeust가 들어간다는 의미입니다. 
-  - ALLOW_LOAD_SCORE_IN_DEVELOP : 이 값을 'allow'라고 하면 local에서 읽어와서 SCORE를 실행한다는 의미입니다.
+  - LOOPCHAIN_DEFAULT_CHANNEL : Multichannel의 기능입니다. 각 RESTful request에는  ```channel_manage_data.json```에서 지정한 channel명이 붙어야 합니다. 그러나 이 옵션을 주면 여기서 지정한 채널로 reqeust가 들어간다는 의미입니다.
+  - ALLOW_LOAD_SCORE_IN_DEVELOP : 이 값을 `"allow"` 라고 하면 local에서 읽어와서 SCORE를 실행한다는 의미입니다.
   - DEVELOP_SCORE_PACKAGE_ROOT : 앞서 지정한 ```score```폴더 아래 어디에서 개발중인 SCORE를 읽어올지 지정합니다. 현재 설정의 의미는 `score`아래 `develop`폴더 아래에서 읽어오라는 의미입니다.
   - DEFAULT_SCORE_PACKAGE : ```develop/contract_score```라고 줍니다. 이 뜻은 'score라는 폴더 아래에 develop/contract_score'라는 SCORE프로젝트를 가져오라는 뜻입니다.
 
@@ -61,7 +61,7 @@ Local computer에서 SCORE 개발할 수 있는 환경 만들기
 }
 ```
 
-### 3. 시작스크립트에서 Peer실행 추가설정 - `launch_servers.sh`
+### 3. 시작스크립트에서 Peer실행 추가설정 - [`launch_servers.sh`](launch_server.sh)
  기존에 있던 SSH key, SCORE저장소 도메인을 지웁니다. 현재 local computer에서 읽어서 처리할 것이기 때문입니다.
 
 ```bash
@@ -148,7 +148,7 @@ $ curl http://localhost:9000/api/v1/status/peer | python -m json.tool
 ```
 
 ### 3. SCORE 버전 조회
- 이 부분에서 보면 version이 하나만 나오는 것을 알 수 있습니다. 이것은 local 컴퓨터안에 있는 파일을 가지고 내부에서 git repository를 자체적으로 구성해서 올리기 때문입니다. 이것은 loopchain이 올라올 때, ```score/develop``폴더 아래 보면 ```deploy``` 란 폴더가 있는 것으로 확인 가능합니다.
+ 이 부분에서 보면 version이 하나만 나오는 것을 알 수 있습니다. 이것은 local 컴퓨터안에 있는 파일을 가지고 내부에서 git repository를 자체적으로 구성해서 올리기 때문입니다. 이것은 loopchain이 올라올 때, `score/develop` 폴더 아래 보면 `deploy` 란 폴더가 있는 것으로 확인 가능합니다.
 
 ```bash
 $ curl http://localhost:9000/api/v1/status/score | python -m json.tool
