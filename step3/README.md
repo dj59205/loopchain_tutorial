@@ -173,20 +173,21 @@ $ curl http://localhost:9000/api/v1/status/score | python -m json.tool
 #### 4. SCORE Transaction 생성
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"propose","params":{"proposer":"RealEstateAgent" , "counterparties": ["leaseholder","lessor"], "content": "A아파트 203동 803호를 보증금 1500 월세 70에 계약 2019년 8월 1일까지 임대함, 임대 취소시 ~~~ ", "quorum": "3"}}'  http://localhost:9000/api/v1/transactions | python -m json.tool
+$ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc":"2.0","method":"propose","params":{"proposer":"RealEstateAgent" , "counterparties": ["leaseholder","lessor"], "content": "A아파트 203동 803호를 보증금 1500 월세 70에 계약 2019년 8월 1일까지 임대함, 임대 취소시", "quorum": "3"}}'  http://localhost:9000/api/v1/transactions | python -m json.tool
 
 // 결과
 {
     "more_info": "",
     "response_code": "0",
-    "tx_hash": "6f02e79ee73b248b78f156180906cfbea5af2755d90cb3f03fe4f9d16d94eaf3"
+    "tx_hash": "3fc5795f1ff0732533f01bb1612911036ab7c620446437e3f2818f9a662e9085"
 }
 ```
 
-#### 5. SCORE Transaction 조회 - `tx_hash` 사용
+#### 5. SCORE Transaction 조회 - `/api/v1/transactions/result` 사용
+
 
 ```bash
-$ curl http://localhost:9000/api/v1/transactions?hash=6f02e79ee73b248b78f156180906cfbea5af2755d90cb3f03fe4f9d16d94eaf3 | python -m json.tool
+$ curl http://localhost:9000/api/v1/transactions/result?hash=3fc5795f1ff0732533f01bb1612911036ab7c620446437e3f2818f9a662e9085 | python -m json.tool
 
 // 결과
 {
@@ -196,4 +197,39 @@ $ curl http://localhost:9000/api/v1/transactions?hash=6f02e79ee73b248b78f1561809
     },
     "response_code": "0"
 }
+```
+
+#### 6. SCORE Transaction 실행 결과 조회 (Query)
+
+``` bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"jsonrpc": "2.0","channel":"channel1","method":"get_user_contracts","id":"test_query","params":{"user_id":"lessor"
+}}' http://localhost:9000/api/v1/query | python -m json.tool
+
+{
+    "response_code": "0",
+    "response": {
+        "jsonrpc": "2.0",
+        "code": 0,
+        "response": {
+            "user_contracts": [
+                {
+                    "proposer": "RealEstateAgent",
+                    "counterparties": [
+                        "leaseholder",
+                        "lessor"
+                    ],
+                    "content": "A\uc544\ud30c\ud2b8 203\ub3d9 803\ud638\ub97c \ubcf4\uc99d\uae08 1500 \uc6d4\uc138 70\uc5d0 \uacc4\uc57d 2019\ub144 8\uc6d4 1\uc77c\uae4c\uc9c0 \uc784\ub300\ud568, \uc784\ub300 \ucde8\uc18c\
+uc2dc ~~~ ",
+                    "quorum": "3",
+                    "approvers": [
+                        "RealEstateAgent"
+                    ],
+                    "contract_id": 1
+                }
+            ]
+        },
+        "id": "test_query"
+    }
+}
+
 ```
