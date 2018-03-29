@@ -26,8 +26,8 @@
 
 Log level 설정하기
 -------
-```LOOPCHAIN_LOG_LEVEL```을 이용하세요. 아래증 하나의 String값을 가지면 됩니다. 기본값은 "DEBUG"입니다.
- - 설정할 수 있는 값:"ERROR", "INFO", "WARN", "WARNING", "INFO", "DEBUG"
+```LOOPCHAIN_LOG_LEVEL```을 이용하세요. 아래증 하나의 String값을 가지면 됩니다. 기본값은 "DEBUG"입니다. (제일 많이 모든 로그를 보여줍니다.)
+ - 설정할 수 있는 값: "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"
 
 Peer의 외부 IP 설정하기
 -------
