@@ -1,0 +1,6 @@
+{
+  "LOOPCHAIN_DEFAULT_CHANNEL" : "channel1",
+  "ALLOW_LOAD_SCORE_IN_DEVELOP" : "allow",
+  "DEVELOP_SCORE_PACKAGE_ROOT" : "develop",
+  "DEFAULT_SCORE_PACKAGE" : "develop/contract_score"
+}
