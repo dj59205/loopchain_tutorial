@@ -11,7 +11,7 @@ loopchain을 실제 설치하고 운영하는데 있어서 가장 중요한 설�
 ### 최소 사양
 * Intel CPU: 8~16 cores per machine
 * 8 GB 혹은 그 이상의 memory
-* 10 Gigabit 혹은 그 이상의 network
+* 10 Gigabit 혹은 그 이상의 network card
 
 
 ### Docker 설치하기
